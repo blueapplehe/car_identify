@@ -10,4 +10,4 @@
 
 测试结果如下
 
-![Image text](https://github.com/blueapplehe/car_identify/blob/master/image/测试结果.png)
+![Image text](https://github.com/blueapplehe/car_identify/blob/master/测试结果.png)
