@@ -8,4 +8,6 @@
 
 需要交流或者帮助的，可以发邮件给我676995058@qq.com,微信QQ同号： 676995058
 
+测试结果如下
+
 ![Image text](https://github.com/blueapplehe/car_identify/blob/master/image/12345.png)
