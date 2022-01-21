@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[ ]:
-
-
 import os,shutil,sys
 sys.path.append('/data/py/lib/') 
 import keras
@@ -11,10 +7,10 @@ import time
 from keras import models
 from keras import layers
 from keras import optimizers
-from keras.applications import VGG16
+#from keras.applications import VGG16
 from keras.applications import xception
-from keras.applications.resnet50 import ResNet50
-from keras.applications.resnet50 import preprocess_input, decode_predictions
+from keras.applications.resnet import ResNet50
+from keras.applications.resnet import preprocess_input, decode_predictions
 from keras.applications.inception_v3 import InceptionV3
 from keras.preprocessing import image
 from keras.layers import Dense, GlobalAveragePooling2D
@@ -48,10 +44,6 @@ mod_names=["速腾","迈腾","雷凌","卡罗拉","凯美瑞",
 mod_num=len(mod_names)#汽车车型总数
 
 
-# In[ ]:
-
-
-
 #使用图片数据增强，降低拟合的有效手段
 train_datagen=ImageDataGenerator(  
     rescale=1./255,
@@ -81,9 +73,6 @@ validation_generator=test_datagen.flow_from_directory(
 )
 
 
-# In[ ]:
-
-
 if is_load_model is False:
     # 构建不带分类器的预训练模型
     base_model = xception.Xception(weights="imagenet",include_top=False,input_shape=(img_height,img_width,3))
@@ -107,8 +96,8 @@ if is_load_model is False:
 
     #预训练
     if pre_train_epochs>0:
-        model.compile(optimizer=optimizers.RMSprop(lr=1e-3), loss='categorical_crossentropy',metrics=['acc'])
-        history=model.fit_generator(
+        model.compile(optimizer=optimizers.rmsprop_v2.RMSProp(learning_rate=1e-3), loss='categorical_crossentropy',metrics=['acc'])
+        history=model.fit(
             train_generator,
             steps_per_epoch=train_generator.n/train_generator.batch_size,
             epochs=pre_train_epochs,
@@ -145,11 +134,8 @@ if is_load_model is False:
     model.save('/data/keras/models/%s.h'%time_t)
 
 
-# In[ ]:
-
-
 #显示训练过程中精度变化
-if is_load_model is False：
+if is_load_model is False:
     acc=history.history['acc']
     val_acc=history.history['val_acc']
     loss=history.history['loss']
@@ -160,10 +146,6 @@ if is_load_model is False：
     plt.legend()
     plt.figure()
     plt.show()
-
-
-# In[ ]:
-
 
 #显示测试结果
 from keras.preprocessing import image
@@ -207,76 +189,3 @@ for img_path in test_imgs:
     paixu=dict(zip(train_generator.class_indices,preds[0]))
     paixu= sorted(paixu.items(), key=lambda x: x[1], reverse=True)
     print(paixu)
-
-
-# In[ ]:
-
-
-#contv_base=VGG16(weights='imagenet',include_top=False,input_shape=(img_height,img_width,3))
-# contv_base.summary()
-# contv_base.trainable=True
-# set_trainable=False
-# for layer in contv_base.layers:
-#     if layer.name=='block1_conv5':
-#         set_trainable=True
-#     if set_trainable:
-#         layer.trainable=True
-#     else:
-#         layer.trainable=False
-
-
-#contv_base=keras.applications.inception_resnet_v2.InceptionResNetV2(input_shape=(img_height,img_width,3))
-       
-
-# contv_base=xception.Xception(weights='imagenet',include_top=False,input_shape=(img_height,img_width,3))
-# contv_base.summary()
-# for layer in contv_base.layers:
-#      layer.trainable = False
-# for i, layer in enumerate(contv_base.layers):
-#     print(i, layer.name)
-
-
-# model=models.Sequential()
-# model.add(contv_base)
-# model.add(layers.Flatten())
-# #model.add(layers.Dropout(0.1))
-# model.add(layers.Dense(256,activation='relu'))
-# model.add(layers.Dense(mod_num,activation='softmax'))
-# model.compile(loss='categorical_crossentropy',optimizer=optimizers.RMSprop(lr=1e-4),metrics=['acc'])
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
