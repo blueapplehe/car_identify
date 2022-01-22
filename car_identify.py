@@ -97,7 +97,7 @@ if is_load_model is False:
     #预训练
     if pre_train_epochs>0:
         model.compile(optimizer=optimizers.rmsprop_v2.RMSProp(learning_rate=1e-3), loss='categorical_crossentropy',metrics=['acc'])
-        history=model.fit(
+        history=model.fit_generator(
             train_generator,
             steps_per_epoch=train_generator.n/train_generator.batch_size,
             epochs=pre_train_epochs,
@@ -151,7 +151,7 @@ if is_load_model is False:
 from keras.preprocessing import image
 import numpy as np
 import cv2
-from mytool import MyTool
+from tools.mytool import MyTool
 test_imgs=['/data/keras/download/qiche/timg2.jpg',
           '/data/keras/download/qiche/su1.jpg',
           '/data/keras/download/qiche/su2.jpg',
