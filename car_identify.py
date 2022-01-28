@@ -57,7 +57,6 @@ train_datagen=ImageDataGenerator(
 
 #验证，测试数据不能进行数据增强
 test_datagen=ImageDataGenerator(rescale=1./255)
-
 train_generator=train_datagen.flow_from_directory(
     train_dir,
     target_size=(img_height,img_width),
@@ -118,8 +117,7 @@ if is_load_model is False:
        layer.trainable = True
 
     # 设置一个很低的学习率，使用 SGD 来微调
-    from keras.optimizers import SGD
-    model.compile(optimizer=optimizers.RMSprop(lr=lr), loss='categorical_crossentropy',metrics=['acc'])
+    model.compile(optimizer=optimizers.rmsprop_v2.RMSprop(lr=lr), loss='categorical_crossentropy',metrics=['acc'])
 
     # 继续训练模型
     history=model.fit_generator(
