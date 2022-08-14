@@ -10,4 +10,4 @@
 
 测试结果如下
 
-![Image text](https://cbfkj.oss-cn-shenzhen.aliyuncs.com/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.jpg)
+![Image text](https://github.com/blueapplehe/car_identify/blob/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.jpg)
